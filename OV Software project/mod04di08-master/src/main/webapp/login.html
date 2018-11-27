@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id"
+          content="477517551933-umld4fqt1rrf4mhou2t7pd4nb5ruepus.apps.googleusercontent.com">
+    <title>Module4</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body>
+<div class="login-clean">
+    <form method="post">
+        <h2 class="sr-only">Login Form</h2>
+        <img src="assets/img/OV.png" style="width: 100%;">
+        <div class="illustration"></div>
+        <div class="form-group">
+            <input id="username" class="form-control" type="text"
+                   name="username" placeholder="Username">
+        </div>
+        <div class="form-group">
+            <input id="password" class="form-control" type="password"
+                   name="password" placeholder="Password">
+        </div>
+        <div class="form-group">
+            <button type="button" onclick=login()
+                    class="btn btn-primary btn-block">Log in
+            </button>
+        </div>
+        <p id="or">or</p>
+        <div class="form-group">
+            <div data-width="auto" class="g-signin2" data-onsuccess="onSignIn"></div>
+        </div>
+        <label id="warning" style="color: red;"></label>
+    </form>
+</div>
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="assets/js/login.js"></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+</body>
+
+</html>

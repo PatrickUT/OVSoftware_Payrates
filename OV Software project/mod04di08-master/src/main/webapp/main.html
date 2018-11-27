@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id"
+          content="477517551933-umld4fqt1rrf4mhou2t7pd4nb5ruepus.apps.googleusercontent.com">
+    <title>Module4</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+    <!-- Icons -->
+    <link rel="stylesheet"
+          href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+          integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+
+    <style>
+        #card-style {
+            box-shadow: 3px 3px #e0e0e0;
+        }
+    </style>
+
+
+</head>
+
+<body onload="requestContent();">
+<div id="wrapper">
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand"><a> OV Software </a></li>
+            <li><a href="#">Payrates</a></li>
+            <li><a href="admin.html">Administration</a></li>
+        </ul>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="row"
+                 style="padding-top: 12px; padding-bottom: 6px; padding-right: 20px; padding-left: 15px;">
+                <div class="col-md-12" style="padding: 0px;">
+                    <div class="card" id="card-style">
+                        <div class="card-body">
+                            <div class="col-md-12 d-flex align-items-center">
+                                <div id="menu-toggle" href="#menu-toggle">
+                                    <div class="bar1"></div>
+                                    <div class="bar2"></div>
+                                    <div class="bar3"></div>
+                                </div>
+                                <a href="https://www.ovsoftware.nl/">
+                                    <img src="assets/img/OV.png" style="height: 80px; margin-right: 12px;"></a>
+                                <input
+                                        id="searchid" type="text" placeholder="Employee Number"
+                                        style="margin: 6px;" size = "16"><input id="searchname"
+                                                                    type="text" placeholder="Full Name"
+                                                                    style="margin: 6px;" size = "16">
+                                <div class="dropdown d-inline-flex">
+                                    <button id="statusButton"
+                                            class="btn btn-primary dropdown-toggle"
+                                            data-toggle="dropdown" aria-expanded="false" type="button"
+                                            style="margin-right: 6px; margin-left: 6px; border-radius: 6px;">Status
+                                    </button>
+                                    <div id="statusDropdown" class="dropdown-menu" role="menu">
+                                        <a id="statusA" value="A" onclick=statusFilterA()
+                                           class="dropdown-item" role="presentation">Active</a> <a
+                                            id="statusI" value="I" onclick=statusFilterI()
+                                            class="dropdown-item" role="presentation">Not Active</a> <a
+                                            id="statusH" value="H" onclick=statusFilterH()
+                                            class="dropdown-item" role="presentation">Not Active Yet</a>
+                                    </div>
+                                </div>
+                                <button id="searchmain" onclick=searchupdate()
+                                        class="btn btn-primary" type="button"
+                                        style="margin-left: 6px; border-radius: 6px;">Search
+                                </button>
+                                <button id="reset"
+                                        class="btn btn-primary" type="button"
+                                        style="margin-left: 6px; border-radius: 6px;">Reset Filters
+                                </button>
+                                <div class="btn-group ml-auto" role="group">
+                                    <div class="dropdown d-inline-flex" style="margin: 6px;">
+                                        <button id="officeButton"
+                                                class="btn btn-primary dropdown-toggle"
+                                                data-toggle="dropdown" aria-expanded="false" type="button"
+                                                style="margin-right: 6px; margin-left: 6px; border-radius: 6px; padding-left: 20px;">
+                                            Office
+                                        </button>
+                                        <div id="officeDropdown" class="dropdown-menu" role="menu">
+                                            <a class="dropdown-item" role="presentation" href="#">Amersfoort</a><a
+                                                class="dropdown-item" role="presentation" href="#">Apeldoorn</a><a
+                                                class="dropdown-item" role="presentation" href="#">DenHaag</a>
+                                            <a class="dropdown-item" role="presentation" href="#">Münster</a><a
+                                                class="dropdown-item" role="presentation" href="#">Oldenzaal</a>
+                                        </div>
+                                    </div>
+                                    <form id="upload" enctype="multipart/form-data" method="post"
+                                          action="./OV/main/import">
+                                        <button id="import" class="btn btn-primary" type="button"
+                                                onclick="openFileDialog();"
+                                                style="margin: 6px; border-radius: 6px;">Import
+                                        </button>
+                                        <input type="file" id="fileLoader" onchange="submitfile()"
+                                               name="files" title="Load File"/>
+                                    </form>
+                                    <button id="export" class="btn btn-primary" type="button"
+                                            onclick="location.href='./OV/main/export.csv'"
+                                            style="margin: 6px; border-radius: 6px;">Export
+                                    </button>
+                                    <button id="logout" onclick=logout() class="btn btn-primary"
+                                            type="button" style="margin: 6px; border-radius: 6px;">Log
+                                        Out
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="padding-top: 6px;">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body" style="padding: 0px;">
+                            <div class="table-responsive table-hover">
+                                <table id="empTable" class="table">
+                                    <thead>
+                                    <tr>
+                                        <td id="hovernum" style="font-size:16px;" onclick=sort(0)>Employee Number<i
+                                                id="numSort" class="fas fa-sort fa-fw"
+                                                style="vertical-align: middle; font-size:18px;"></i></td>
+                                        <td id="hovername" style="font-size:16px;" onclick=sort(1)>Full Name<i
+                                                id="nameSort" class="fas fa-sort fa-fw"
+                                                style="vertical-align: middle; font-size:18px;"></i></td>
+                                        <td>Status</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="EmployeeList">
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="modal fade" role="dialog" tabindex="-1" id="empInfo">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 id=infotitle class="modal-title"></h4>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                <span aria-hidden="true">x</span>
+                                            </button>
+                                        </div>
+                                        <div id="infobody" class="modal-body" style="padding: 0;">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Payrate</th>
+                                                        <th>From</th>
+                                                        <th>Until</th>
+                                                        <th></th>
+                                                        <th></th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody id=infotable>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                                <p id="payratestatus"></p>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button onclick=newPayrtField()
+                                                    class="btn btn-primary mr-auto" type="button">Add
+                                                New Payrate
+                                            </button>
+                                            <button class="btn btn-light" type="button"
+                                                    data-dismiss="modal" onclick=$(
+                                            "#payratestatus").html("")>Close</button>
+                                            <button onclick=saveChanges() class="btn btn-primary"
+                                                    type="button">Save
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /#page-content-wrapper -->
+
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="https://apis.google.com/js/platform.js?onload=onLoad"
+        async defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mouse0270-bootstrap-notify/3.1.7/bootstrap-notify.min.js"></script>
+</body>
+
+
+
+</html>
