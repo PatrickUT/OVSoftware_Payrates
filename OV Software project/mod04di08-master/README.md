@@ -1,4 +1,4 @@
-# Module 4 Project (OV Software)
+# Pay-rate web application for OVSoftware
 
 ## Members
 
@@ -8,9 +8,6 @@
 * Sibbir Ahamed
 * Sri Saai Akhheel Bandi
 * Leon Kukuk
-
-## Trello board
-https://trello.com/module41
 
 ## Deployment link
 http://farm03.ewi.utwente.nl:7015/mod04di08/main.html
