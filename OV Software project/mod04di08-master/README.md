@@ -1,6 +1,6 @@
 # Pay-rate web application for OVSoftware
 
-## Members
+## Contributing Members
 
 * Patrick Japink
 * Patrick Ignatius Patrick
@@ -8,9 +8,6 @@
 * Sibbir Ahamed
 * Sri Saai Akhheel Bandi
 * Leon Kukuk
-
-## Deployment link
-http://farm03.ewi.utwente.nl:7015/mod04di08/main.html
 
 ### Local account
 **Username:** a
